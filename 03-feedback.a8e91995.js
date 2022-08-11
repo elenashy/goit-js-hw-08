@@ -1,0 +1,2 @@
+!function(){var e,t,a="feedback-form-state",o=document.querySelector("form"),r={};o.addEventListener("submit",(function(e){e.preventDefault(),localStorage.getItem(a),r[e.target.name]=e.target.value,console.log(r),e.target.reset(),localStorage.removeItem(a)})),o.addEventListener("input",(function(e){r[e.target.name]=e.target.value,localStorage.setItem(a,JSON.stringify(r))})),e=localStorage.getItem(a),t=JSON.parse(e),e&&(o.email.value=t.email||"",o.message.value=t.message||"",console.log(t))}();
+//# sourceMappingURL=03-feedback.a8e91995.js.map
