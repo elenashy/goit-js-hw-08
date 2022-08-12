@@ -1,9 +1,6 @@
 
 const LOCALE_STORAGE_KEY = "feedback-form-state"
-
 const form = document.querySelector('form')
-
-const formData = {};
 
 form.addEventListener('submit', onFormSubmit)
 form.addEventListener('input', onFormInput)
@@ -13,26 +10,27 @@ updateForm()
 function onFormSubmit(evt) {
     evt.preventDefault();
 
-    localStorage.getItem(LOCALE_STORAGE_KEY)
+    let savedMessage = localStorage.getItem(LOCALE_STORAGE_KEY)
 
-    formData[evt.target.name] = evt.target.value;
-    console.log(formData)
+    savedMessage[evt.target.name] = evt.target.value;
+    console.log(savedMessage)
 
     evt.target.reset()
-
     localStorage.removeItem(LOCALE_STORAGE_KEY)
-  
 }
 
 function onFormInput(evt) {
-    formData[evt.target.name] = evt.target.value;
+    let savedMessage = localStorage.getItem(LOCALE_STORAGE_KEY)
 
-    localStorage.setItem(LOCALE_STORAGE_KEY, JSON.stringify(formData))
+    savedMessage = savedMessage ? JSON.parse(savedMessage) : {};
+    savedMessage[evt.target.name] = evt.target.value;
+
+    localStorage.setItem(LOCALE_STORAGE_KEY, JSON.stringify(savedMessage))
 }
 
 function updateForm() {
-    const savedMessage = localStorage.getItem(LOCALE_STORAGE_KEY)
-    const parseMessage = JSON.parse(savedMessage)
+    let savedMessage = localStorage.getItem(LOCALE_STORAGE_KEY)
+    let parseMessage = JSON.parse(savedMessage)
 
     if (savedMessage) {
         form.email.value = parseMessage.email || ""

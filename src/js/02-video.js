@@ -8,17 +8,16 @@ const LOCALE_STORAGE_KEY = 'videoplayer-current-time'
 const onPlay = function (data) {
     const currentTime = data.seconds
     
-
-    if (LOCALE_STORAGE_KEY) {
-        localStorage.setCurrentTime
-        localStorage.setItem(LOCALE_STORAGE_KEY, JSON.stringify(currentTime))
-    }
+    localStorage.setItem(LOCALE_STORAGE_KEY, JSON.stringify(currentTime))
 }
 
 player.on('timeupdate', throttle(onPlay, 1000));
 
 const savedTime = localStorage.getItem(LOCALE_STORAGE_KEY)
-player.setCurrentTime(savedTime)
+
+if (savedTime) {
+    player.setCurrentTime(savedTime)
+}
     
 
 
